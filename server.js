@@ -1,12 +1,5 @@
-const express = require('express');
-const sequelize = require('./config/connection');
-
-const app = express();
-const PORT = process.env.PORT || 3001;
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-sequelize.sync().then(() => {
-  app.listen(PORT, () => console.log('Now listening'));
-});
+//import packages
+require('dotenv').config();
+const inquirer = require('inquirer');
+const mysql = require('mysql2');
+const consoleTable = require('console.table');
