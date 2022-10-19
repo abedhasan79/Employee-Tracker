@@ -77,6 +77,52 @@ const promptOptions = () => {
                     });
             }
 
+            if (answer.choices === 'add a role') {
+                inquirer
+                    .prompt([
+                        {
+                            type: 'input',
+                            message: 'Enter a title: ',
+                            name: 'addTitle'
+                        },
+                        {
+                            type: 'input',
+                            message: 'Enter a salary for the titel: ',
+                            name: 'addSalary'
+                        }
+                    ])
+                    .then(answer => {
+                        const arr = [answer.addTitle, answer.addSalary];
+
+                        db.query(`SELECT id FROM department`, (err, res) => {
+                            const dep = res.map(({ id }) => ({ value: id }));
+                            inquirer
+                                .prompt([
+                                    {
+                                        type: 'list',
+                                        message: 'Choose a department',
+                                        name: 'addDepartmentId',
+                                        choices: dep
+                                    }
+                                ])
+                                .then(response => {
+                                    const dept = response.addDepartmentId;
+                                    arr.push(dept);
+                                    db.query(`INSERT INTO role (title, salary, department_id) VALUES (?,?,?);`, arr, function (err, results) {
+                                        if (err) throw err;
+                                        console.log(arr);
+                                        console.log(`\nadded to role\n`);
+                                        console.log(`\Choose view all roles to see that the role got added.\n`);
+                                        promptOptions();
+                                    });
+                                });
+                        });
+
+                    });
+
+            }
+
+            
 
         });
 };
