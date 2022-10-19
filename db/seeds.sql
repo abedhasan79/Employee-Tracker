@@ -1,28 +1,27 @@
 INSERT INTO department (name)
-VALUES ("Engineering"),
-    ("Marketing"),
-    ("Sales");
+VALUES ('IT'),
+('Finance & Accounting'),
+('Sales & Marketing');
 
 SELECT * FROM department;
 
 INSERT INTO role (title, salary, department_id)
-VALUES ("Engineer", 1000, 1),
-    ("Engineer manager", 1200,1),
-    ("Marketing Employee", 1000, 2),
-    ("Marketing Manager", 1200, 2),
-    ("Sales Employee", 1000, 3),
-    ("Sales Manager", 1200, 3);
+VALUES ('Full Stack Developer', 80000, 1),
+('Software Engineer', 120000, 1),
+('Accountant', 10000, 2), 
+('Finanical Analyst', 150000, 2),
+('Marketing Coordindator', 70000, 3), 
+('Sales Lead', 90000, 3);
 
 SELECT * FROM role;
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES ("sdgsdg","asfasf", 1, 1),
-    ("svgjnsd","rev", 1,1),
-    ("sdg","sfe", 2, 2),
-    ("tyuj","er", 2, 2),
-    ("oks","ewf", 3, 3),
-    ("erve","refg", 3, 3),
-    ("ervseg","rtherggs", 3, NULL);
+VALUES ('erv', 'eswrherh', 2, null),
+('asd', 'erherh', 1, 1),
+('eryher', 'sdf', 4, null),
+('asf', 'erherh', 3, 3),
+('af', 'ewfgry', 6, null),
+('erhger', 'Swefsef', 5, 5);
 
 SELECT * FROM employee;
 

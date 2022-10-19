@@ -47,12 +47,17 @@ const promptOptions = () => {
 
             if (answer.choices === 'view all employees') {
                 console.log('\nshowing all employees.\n')
-                db.query(``, function (err, results) {
+                db.query(`SELECT employee.id as 'employee id', employee.first_name, employee.last_name, role.title, department.name as department, role.salary, employee.manager_id as 'manager id'
+                From employee
+                JOIN role on employee.role_id = role.id
+                JOIN department on role.department_id = department.id
+                JOIN employee  manager on employee.manager_id = manager.id;`, function (err, results) {
                     if (err) throw err;
                     console.table(results);
                     promptOptions();
                 });
             }
+
 
         });
 };
