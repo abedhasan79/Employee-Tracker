@@ -58,8 +58,29 @@ const promptOptions = () => {
                 });
             }
 
+            if (answer.choices === 'add a department') {
+                inquirer
+                    .prompt([
+                        {
+                            type: 'input',
+                            message: 'Enter a Department: ',
+                            name: 'addDepartment'
+                        }
+                    ])
+                    .then(answer => {
+                        db.query(`INSERT INTO department (name) VALUES (?);`, answer.addDepartment, function (err, results) {
+                            if (err) throw err;
+                            console.log(`\nadded ${answer.addDepartment} to department\n`);
+                            console.log(`\Choose view all departments to see that the department got added.\n`);
+                            promptOptions();
+                        });
+                    });
+            }
+
 
         });
 };
+
+
 
 promptOptions();
