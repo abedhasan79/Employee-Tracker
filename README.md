@@ -28,7 +28,7 @@ This App is a command line application for tracking employees in a company based
 To run the app type npm start from the root directory
 
 ### Walkthrough Video
-[click here](https://app.castify.com/view/428a3a54-0986-4257-bc73-89c4ccd4fdbf) to see a walkthrough video of the app.
+[click here](https://app.castify.com/view/63918b05-ff58-4744-b34c-beb570cea59a) to see a walkthrough video of the app.
 
 ## License
 The Application is covered under MIT license
