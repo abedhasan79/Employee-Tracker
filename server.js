@@ -122,11 +122,78 @@ const promptOptions = () => {
 
             }
 
+            if (answer.choices === 'add an employee') {
+                addEmployee();
+            }
             
 
         });
 };
 
+// function to add an employee 
+addEmployee = () => {
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: "What is the employee's first name?",
+            name: 'fistName'
+        },
+        {
+            type: 'input',
+            message: "What is the employee's last name?",
+            name: 'lastName'
+        }
+    ])
+        .then(answer => {
+            const params = [answer.fistName, answer.lastName]
 
+            db.query(`SELECT role.id, role.title FROM role`, (err, data) => {
+                if (err) throw err;
+
+                const roles = data.map(({ id, title }) => ({ name: title, value: id }));
+
+                inquirer.prompt([
+                    {
+                        type: 'list',
+                        message: "What is the employee's role?",
+                        name: 'role',
+                        choices: roles
+                    }
+                ])
+                    .then(roleChoice => {
+                        const role = roleChoice.role;
+                        params.push(role);
+
+                        db.query(`SELECT * FROM employee`, (err, data) => {
+                            if (err) throw err;
+
+                            const managers = data.map(({ id, first_name, last_name }) => ({ name: first_name + " " + last_name, value: id }));
+
+                            inquirer.prompt([
+                                {
+                                    type: 'list',
+                                    name: 'manager',
+                                    message: "Who is the employee's manager?",
+                                    choices: managers
+                                }
+                            ])
+                                .then(managerChoice => {
+                                    const manager = managerChoice.manager;
+                                    params.push(manager);
+
+                                    const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id)
+                      VALUES (?, ?, ?, ?)`;
+
+                                    db.query(sql, params, (err, result) => {
+                                        if (err) throw err;
+                                        console.log("Employee has been added!");
+                                        promptOptions();
+                                    });
+                                });
+                        });
+                    });
+            });
+        });
+};
 
 promptOptions();
