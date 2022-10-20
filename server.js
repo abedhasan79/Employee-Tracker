@@ -15,6 +15,12 @@ const db = mysql.createConnection(
     console.log(`Connected to the department_db database.`)
 );
 
+db.connect((err)=>{
+    if(err){
+        console.log('error connecting to mysql');
+    }
+    console.log('connection successfull')
+});
 
 const promptOptions = () => {
     inquirer
