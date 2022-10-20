@@ -19,8 +19,6 @@ This App is a command line application for tracking employees in a company based
 ## Installation
 
 - Clone the Project.
-- Then use mysql -u root -p then enter your password
-- Then run source db/schema.sql; then source db/seeds.sql; then enter quit.
 - Then use npm install in terminal to install the project.
 
 ## Usage
