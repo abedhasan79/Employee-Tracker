@@ -28,34 +28,18 @@ const promptOptions = () => {
         ])
         .then((answer) => {
             if (answer.choices === 'view all departments') {
-                console.log('\nshowing all departments.\n')
-                db.query(`select department.id as id, department.name as department from department;`, function (err, results) {
-                    if (err) throw err;
-                    console.table(results);
-                    promptOptions();
-                });
+                showAllDepartment();
+
             }
 
             if (answer.choices === 'view all roles') {
-                console.log('\nshowing all role.\n')
-                db.query(`select role.id as id, role.title as title, role.salary as salary, role.department_id as department from role;`, function (err, results) {
-                    if (err) throw err;
-                    console.table(results);
-                    promptOptions();
-                });
+                showAllRoles();
+
             }
 
             if (answer.choices === 'view all employees') {
-                console.log('\nshowing all employees.\n')
-                db.query(`SELECT employee.id as 'employee id', employee.first_name, employee.last_name, role.title, department.name as department, role.salary, employee.manager_id as 'manager id'
-                From employee
-                JOIN role on employee.role_id = role.id
-                JOIN department on role.department_id = department.id
-                JOIN employee  manager on employee.manager_id = manager.id;`, function (err, results) {
-                    if (err) throw err;
-                    console.table(results);
-                    promptOptions();
-                });
+                showAllEmployee();
+
             }
 
             if (answer.choices === 'add a department') {
@@ -72,7 +56,7 @@ const promptOptions = () => {
                             if (err) throw err;
                             console.log(`\nadded ${answer.addDepartment} to department\n`);
                             console.log(`\Choose view all departments to see that the department got added.\n`);
-                            promptOptions();
+                            showAllDepartment();
                         });
                     });
             }
@@ -113,7 +97,7 @@ const promptOptions = () => {
                                         console.log(arr);
                                         console.log(`\nadded to role\n`);
                                         console.log(`\Choose view all roles to see that the role got added.\n`);
-                                        promptOptions();
+                                        showAllRoles();
                                     });
                                 });
                         });
@@ -132,6 +116,39 @@ const promptOptions = () => {
         });
 };
 
+//show all department
+showAllDepartment = () => {
+    console.log('\nshowing all departments.\n')
+    db.query(`select department.id as id, department.name as department from department;`, function (err, results) {
+        if (err) throw err;
+        console.table(results);
+        promptOptions();
+    });
+}
+
+//show all roles
+showAllRoles = () => {
+    console.log('\nshowing all role.\n')
+    db.query(`select role.id as id, role.title as title, role.salary as salary, role.department_id as department from role;`, function (err, results) {
+        if (err) throw err;
+        console.table(results);
+        promptOptions();
+    });
+}
+
+//show all employee
+showAllEmployee = () => {
+    console.log('\nshowing all employees.\n')
+    db.query(`SELECT employee.id as 'employee id', employee.first_name, employee.last_name, role.title, department.name as department, role.salary, employee.manager_id as 'manager id'
+                From employee
+                JOIN role on employee.role_id = role.id
+                JOIN department on role.department_id = department.id
+                JOIN employee  manager on employee.manager_id = manager.id;`, function (err, results) {
+        if (err) throw err;
+        console.table(results);
+        promptOptions();
+    });
+}
 // function to add an employee 
 addEmployee = () => {
     inquirer.prompt([
@@ -189,7 +206,7 @@ addEmployee = () => {
                                     db.query(sql, params, (err, result) => {
                                         if (err) throw err;
                                         console.log("Employee has been added!");
-                                        promptOptions();
+                                        showAllEmployee();
                                     });
                                 });
                         });
@@ -244,7 +261,7 @@ updateEmployeeRole = () => {
                                 if (err) throw err;
                                 console.log("Employee has been updated!");
 
-                                promptOptions();
+                                showAllEmployee();
                             });
                         });
                 });
