@@ -18,14 +18,17 @@ This App is a command line application for tracking employees in a company based
 
 ## Installation
 
-Clone the Project. Then use npm install in terminal to install the project.
+- Clone the Project.
+- Then use mysql -u root -p then enter your password
+- Then run source db/schema.sql; then source db/seeds.sql; then enter quit.
+- Then use npm install in terminal to install the project.
 
 ## Usage
 
 To run the app type npm start from the root directory
 
 ### Walkthrough Video
-[click here]() to see a walkthrough video of the app.
+[click here](https://app.castify.com/view/428a3a54-0986-4257-bc73-89c4ccd4fdbf) to see a walkthrough video of the app.
 
 ## License
 The Application is covered under MIT license
