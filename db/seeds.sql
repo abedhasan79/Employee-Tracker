@@ -1,17 +1,17 @@
 INSERT INTO department (name)
 VALUES ('IT'),
-('Finance & Accounting'),
-('Sales & Marketing');
+('Finance'),
+('Sales');
 
 SELECT * FROM department;
 
 INSERT INTO role (title, salary, department_id)
-VALUES ('Full Stack Developer', 80000, 1),
-('Software Engineer', 120000, 1),
-('Accountant', 10000, 2), 
-('Finanical Analyst', 150000, 2),
-('Marketing Coordindator', 70000, 3), 
-('Sales Lead', 90000, 3);
+VALUES ('Developer', 60000, 1),
+('Engineer', 110000, 1),
+('Accountant', 9000, 2), 
+('Finanical Analyst', 120000, 2),
+('Marketing Coordindator', 60000, 3), 
+('Sales Lead', 70000, 3);
 
 SELECT * FROM role;
 
